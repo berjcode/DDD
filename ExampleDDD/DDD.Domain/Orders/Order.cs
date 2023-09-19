@@ -12,22 +12,22 @@ public class Order
     {
 
     }
-    public int Id { get; private set; }
-    public int CustomerId { get; private set; }
+    public OrderId Id { get; private set; }
+    public CustomerId CustomerId { get; private set; }
 
-    public static Order Create(Customer customer)
+    public static Order Create(CustomerId customerId)
     {
         var order = new Order
         {
-            CustomerId = customer.Id
+            CustomerId = customerId
         };
 
         return order;
     }
 
-    public void Add(Product product)
+    public void Add(ProductId productId, Money price)
     {
-        var lineItem = new LineItem(Id, product.Id, product.Price);
+        var lineItem = new LineItem(Id, productId, price);
 
         _lineItems.Add(lineItem);
     }
@@ -35,15 +35,15 @@ public class Order
 
 public class LineItem
 {
-    public LineItem(int orderId, int productId, Money price)
+    public LineItem(OrderId orderId, ProductId productId, Money price)
     {
         OrderId = orderId;
         ProductId = productId;
         Price = price;
     }
-    public int Id { get; private set; }
-    public int OrderId { get; private set; }
-    public int ProductId { get; private set; }
+    public LineItemId Id { get; private set; }
+    public OrderId OrderId { get; private set; }
+    public ProductId ProductId { get; private set; }
     public Money Price { get; private set; }
 
 }
