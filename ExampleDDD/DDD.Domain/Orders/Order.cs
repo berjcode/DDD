@@ -1,6 +1,5 @@
 ﻿using DDD.Domain.Customers;
 using DDD.Domain.Products;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DDD.Domain.Orders;
 
@@ -14,6 +13,8 @@ public class Order
     }
     public OrderId Id { get; private set; }
     public CustomerId CustomerId { get; private set; }
+
+    public IReadOnlyList<LineItem> LineItems => _lineItems.ToList();
 
     public static Order Create(CustomerId customerId)
     {
@@ -35,6 +36,10 @@ public class Order
 
 public class LineItem
 {
+    public LineItem()
+    {
+        
+    }
     public LineItem(OrderId orderId, ProductId productId, Money price)
     {
         OrderId = orderId;
